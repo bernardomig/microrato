@@ -21,6 +21,10 @@
 #ifndef __MR32_H
 #define __MR32_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #define ROBOT 38
 
 #ifndef ROBOT
@@ -31,7 +35,7 @@
 
 #define PI	3.141592654
 
-typedef enum bool { false = 0, true } bool;
+typedef enum BOOL { FALSE = 0, TRUE } BOOL;
 
 /** \brief sensor ids 
  * \anchor sensor_ids
@@ -60,10 +64,6 @@ typedef enum bool { false = 0, true } bool;
 
 #define readBeaconSens() (PORTBbits.RB9)
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 // ****************************************************************************
 // Global variables
 typedef union
@@ -85,11 +85,11 @@ extern MR32_analogSensors analogSensors;
 extern int SERVO_WIDTH_MIN;
 extern int SERVO_WIDTH_MAX;
 
-extern volatile bool tick10ms;
-extern volatile bool tick20ms;
-extern volatile bool tick40ms;
-extern volatile bool tick80ms;
-extern volatile bool tick160ms;
+extern volatile BOOL tick10ms;
+extern volatile BOOL tick20ms;
+extern volatile BOOL tick40ms;
+extern volatile BOOL tick80ms;
+extern volatile BOOL tick160ms;
 
 // ****************************************************************************
 // Function prototypes
@@ -180,9 +180,9 @@ unsigned int batteryVoltage(void);
 
 /** \brief set control mode
  * \ingroup actuators
- * \param flag set/reset control mode (true set closed mode)
+ * \param flag set/reset control mode (TRUE set closed mode)
  */
-void closedLoopControl(bool flag);
+void closedLoopControl(BOOL flag);
 
 
 /** \brief Apply the given velocities to the wheel motors

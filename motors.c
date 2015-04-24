@@ -1,55 +1,52 @@
-#include "motors.hpp"
+#include "motors.h"
 
-namespace motors
-{
+const int max_speed = 100;
 
-void stop()
+void motors_stop()
 {
 	setVel2(0, 0);
 }
 
-void forward()
+void motors_forward()
 {
 	setVel2(max_speed, max_speed);
 }
 
 
-void back()
+void motors_back()
 {
 	setVel2(-max_speed, -max_speed);
 }
 
 
-void rotateRight()
+void motors_rotateRight()
 {
 	setVel2(max_speed, -max_speed);
 }
 
 
-void rotateLeft()
+void motors_rotateLeft()
 {
 	setVel2(-max_speed, max_speed);
 }
 
 
-void forwardLeft()
+void motors_forwardLeft()
 {
 	setVel2(0, max_speed);
 }
 
-void forwardRight()
+void motors_forwardRight()
 {
 	setVel2(max_speed, 0);
 }
 
-void backLeft()
+void motors_backLeft()
 {
 	setVel2(0, -max_speed);
 }
 
-void backRight()
+void motors_backRight()
 {
 	setVel2(-max_speed, 0);
-}
-
 }

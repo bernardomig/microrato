@@ -1,16 +1,13 @@
-#include "sensors.hpp"
+#include "sensors.h"
 
-int readLineSensors(int x) { return 0;};
+const int gain = 0;
 
-namespace sensors
-{
-
-unsigned int getRAW()
+unsigned int sensor_getRAW()
 {
 	return readLineSensors(gain);
 }
 
-Output get()
+Output sensor_get()
 {
 	int read = readLineSensors(gain);
 	if(read == 0b00000)
@@ -27,6 +24,6 @@ Output get()
 		return RIGHT_TRACK;
 	else if(read & 0b00001)
 		return LEFT_TRACK;
-}
-
+	else
+		return ON_TRACK;
 }

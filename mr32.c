@@ -99,11 +99,11 @@ int SERVO_WIDTH_MAX = 2200; // 2.2 ms
 
 // **************************************************************************
 // Global variables
-volatile bool tick10ms;
-volatile bool tick20ms;
-volatile bool tick40ms;
-volatile bool tick80ms;
-volatile bool tick160ms;
+volatile BOOL tick10ms;
+volatile BOOL tick20ms;
+volatile BOOL tick40ms;
+volatile BOOL tick80ms;
+volatile BOOL tick160ms;
 
 MR32_analogSensors analogSensors;
 volatile static int counterLeft;
@@ -112,7 +112,7 @@ volatile static int spLeft, spRight;
 volatile static double xpos, ypos, theta;
 volatile static int pwmRight, pwmLeft;
 
-static bool _closedLoopControl = false;
+static BOOL _closedLoopControl = FALSE;
 
 // ***************************************************************************
 // Robot dimensions
@@ -250,7 +250,7 @@ void initPIC32(void)
 	IEC0bits.INT4IE = 1;		// Enable INT4 interrupts
 
 	pwmLeft = pwmRight = 0;
-	_closedLoopControl = true;
+	_closedLoopControl = TRUE;
 	counterLeft = counterRight = 0;
 	spLeft = spRight = 0;
 	theta = 0.0;				// This way, global coordinate system is 
@@ -450,13 +450,13 @@ void setPWM2(int pwmL, int pwmR)
 
 void setVel2(int velL, int velR)
 {
-	if(_closedLoopControl == true)
+	if(_closedLoopControl == TRUE)
 		setSP2(velL / 2, velR / 2);
 	else
 		setPWM2(velL, velR);
 }
 
-void closedLoopControl(bool flag)
+void closedLoopControl(BOOL flag)
 {
 	_closedLoopControl = flag;
 }
@@ -616,7 +616,7 @@ void _int_(_TIMER_2_VECTOR) isr_t2(void)
 	if((cntT2Ticks % 8) == 0) tick80ms = 1;		// Set every 80 ms
 	if((cntT2Ticks % 16) == 0) tick160ms = 1;	// Set every 160 ms
 
-	if(_closedLoopControl == true)
+	if(_closedLoopControl == TRUE)
 	{
 		readEncoders(&encLeft, &encRight);
 		updateLocalization(encLeft, encRight);
