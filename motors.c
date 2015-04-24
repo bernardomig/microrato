@@ -14,7 +14,7 @@ void motors_forward()
 
 void motors_back()
 {
-	setVel2(-HALF_LINEAR_SPEED, -HALF_LINEAR_SPEED/2);
+	setVel2(-HALF_LINEAR_SPEED, -HALF_LINEAR_SPEED);
 }
 
 

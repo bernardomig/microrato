@@ -1,4 +1,4 @@
-SOURCES=micro.c mr32.c motors.c robot.c sensors.c
+SOURCES=micro.c mr32.c motors.c robot.c sensors.c moviment.c
 
 compile: micro.hex
 	

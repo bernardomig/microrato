@@ -5,7 +5,7 @@
 
 typedef enum
 {
-	OUT_OF_TRACK,
+	ALL_OFF,
 	ALL_ON,
 	ON_TRACK,
 	RIGHT_TILTED,
@@ -14,9 +14,9 @@ typedef enum
 	LEFT
 } sout;
 
-inline unsigned int sensor_getRAW();
+inline unsigned int sensors_getRAW();
 
-sout sensor_get();
+sout sensors_get();
 
 
 #endif

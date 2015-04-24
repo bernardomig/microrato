@@ -1,9 +1,14 @@
 #ifndef MOVIMENT_H
 #define MOVIMENT_H
 
-void moviment_rotate90right();
-void moviment_rotate90left();
+#include "motors.h"
+#include "sensors.h"
+
+void moviment_rotate90Right();
+void moviment_rotate90Left();
 void moviment_forward();
 void moviment_rotate180();
+void moviment_stop();
+void moviment_back();
 
 #endif

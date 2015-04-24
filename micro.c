@@ -1,60 +1,48 @@
 #include "mr32.h"
 #include "robot.h"
-#include "motors.h"
+#include "moviment.h"
 #include "sensors.h"
-
-int l = 0;
 
 int main()
 {
+	sout s, p;
+	
+	
 	robot_init();
-	while(1) { 
+	while(1) {
 		while(!startButton());
 		while(!stopButton()) {
-			int s = sensor_getRAW();
-			l = 0;
-			if(s & 0b00001)
-				l |= 0b01;
-			if(s & 0b10000)
-				l |= 0b10;
-			leds(l);
+			p = s;
+			s = sensors_get();
 			
-			
-			if (s & 0b00001) {
-				while(sensor_getRAW() & 0b00001)
-					motors_forward;
-				while((sensor_getRAW() & 0b00100))
-					motors_rotateRight();
-				while(!(sensor_getRAW() & 0b00100))
-					motors_rotateRight();
+			if(s == LEFT) {
+				while(sensors_get() == LEFT);
+				moviment_rotate90Left();
+				leds(0b100);
 			}
-			else if (s & 0b10000) {
-				while(sensor_getRAW() & 0b10000)
-					motors_forward;
-				while((sensor_getRAW() & 0b00100))
-					motors_rotateLeft();
-				while(!(sensor_getRAW() & 0b00100))
-					motors_rotateLeft();
+			else if(s == RIGHT) {
+				while(sensors_get() == RIGHT);
+				moviment_rotate90Right();
+				leds(0b001);
 			}
-			else if (s & 0b10001) {
-				while(sensor_getRAW() & 0b10001)
-					motors_forward;
-				while(!(sensor_getRAW() & 0b00001))
-					motors_rotateRight();
-				while(!(sensor_getRAW() & 0b00100))
-					motors_rotateRight();
+			else if(s == ALL_ON) {
+				while(sensors_get() == ALL_ON);
+				moviment_rotate90Left();
+				leds(0b111);
 			}
-			else if(s & 0b00100)
-				motors_forward();
-			else if(s & 0b00010)
-				motors_forwardRight();
-			else if(s & 0b01000)
-				motors_forwardLeft();
-			else if(s == 0b00000){
-				while(!(sensor_getRAW() & 0b00100))
-					motors_rotateLeft();
+			else if(s == ALL_OFF && p == ON_TRACK) {
+				moviment_rotate180();
+				leds(0b101);
+			}
+			else if(s == ON_TRACK || s == LEFT_TILTED || s == RIGHT_TILTED) {
+				moviment_forward();
+				leds(0b010);
+			}
+			else {
+				moviment_back();
+				leds(0b000);
 			}
 		}
-		motors_stop();
+		moviment_stop();
 	}
 }
