@@ -1,6 +1,6 @@
 #include "motors.h"
 
-const int max_speed = 100;
+const int max_speed = 70;
 
 void motors_stop()
 {

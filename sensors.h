@@ -12,11 +12,11 @@ typedef enum
 	LEFT_TILTED,
 	RIGHT_TRACK,
 	LEFT_TRACK
-} Output;
+} sout;
 
 inline unsigned int sensor_getRAW();
 
-Output sensor_get();
+sout sensor_get();
 
 
 #endif

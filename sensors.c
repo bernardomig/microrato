@@ -7,7 +7,7 @@ unsigned int sensor_getRAW()
 	return readLineSensors(gain);
 }
 
-Output sensor_get()
+sout sensor_get()
 {
 	int read = readLineSensors(gain);
 	if(read == 0b00000)
