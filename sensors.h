@@ -10,8 +10,8 @@ typedef enum
 	ON_TRACK,
 	RIGHT_TILTED,
 	LEFT_TILTED,
-	RIGHT_TRACK,
-	LEFT_TRACK
+	RIGHT,
+	LEFT
 } sout;
 
 inline unsigned int sensor_getRAW();
