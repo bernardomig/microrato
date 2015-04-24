@@ -51,7 +51,7 @@ int main()
 			else if(s & 0b01000)
 				motors_forwardLeft();
 			else if(s == 0b00000){
-				while(!(sensor_getRAW() & 0b00001))
+				while(!(sensor_getRAW() & 0b00100))
 					motors_rotateLeft();
 			}
 		}
