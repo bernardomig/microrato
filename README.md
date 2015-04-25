@@ -9,5 +9,7 @@ Code for PathFinder
 ## Make commands
 
 Compile: make
+
 Upload to board: make upload
+
 Clean: make clean
