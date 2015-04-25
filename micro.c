@@ -7,7 +7,6 @@ int main()
 {
 	sout s, p;
 	
-	
 	robot_init();
 	while(1) {
 		while(!startButton());
