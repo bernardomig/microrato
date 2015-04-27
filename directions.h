@@ -9,4 +9,6 @@ typedef enum
 	BACK
 } Directions;
 
+Direction Direction_changeRef(Direction, Direction);
+
 #endif

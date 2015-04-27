@@ -4,6 +4,7 @@
 #include "motors.h"
 #include "sensors.h"
 
+void moviment_align();
 void moviment_rotate90Right();
 void moviment_rotate90Left();
 void moviment_forward();

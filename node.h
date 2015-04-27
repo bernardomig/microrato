@@ -8,6 +8,7 @@
 
 typedef struct Node {
 	struct Node* parent;
+	struct Node* child;
 	int current;
 	Intersections intersection;
 } Node;

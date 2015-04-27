@@ -1,12 +1,23 @@
-#include "moviment.h" 
+#include "moviment.h"
+
+void moviment_align()
+{
+	if(sensors_get() & LEFT_TILTED) {
+		motors_rotateRight();
+		while(!(sensors_get() & ON_TRACK));
+	}
+	else if(sensors_get() & RIGHT_TILTED) {
+		motors_rotateLeft();
+		while(!(sensors_get() & ON_TRACK));
+	}
+}
 
 void moviment_rotate90Right()
 {
 	motors_rotateRight();
-	if(sensors_get() & RIGHT) {
-		while(sensors_get() & RIGHT);
+	if(sensors_get() & ON_TRACK) {
+		while(sensors_get() & ON_TRACK);
 	}
-	while(!(sensors_get() & RIGHT));
 	while(!(sensors_get() & ON_TRACK));
 	motors_stop();
 }
@@ -14,10 +25,7 @@ void moviment_rotate90Right()
 void moviment_rotate90Left()
 {
 	motors_rotateLeft();
-	if(sensors_get() & LEFT) {
-		while(sensors_get() & LEFT);
-	}
-	while(!(sensors_get() & LEFT));
+	while(sensors_get() & ON_TRACK);
 	while(!(sensors_get() & ON_TRACK));
 	motors_stop();
 }
@@ -35,8 +43,10 @@ void moviment_forward()
 void moviment_rotate180()
 {
 	motors_rotateRight();
-	while(!(sensors_get() & RIGHT));
-	while(!(sensors_get() & LEFT_TILTED));
+	if(!(sensors_get() & RIGHT)) {
+		while(!(sensors_get() & RIGHT));
+	}
+	while(!(sensors_get() & ON_TRACK));
 	motors_stop();
 }
 

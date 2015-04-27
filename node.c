@@ -4,6 +4,7 @@ Node* Node_new(Node* p, Intersections i)
 {
 	Node* self = malloc(sizeof(Node));
 	self->current = 0;
+	p->child = self;
 	self->parent = p;
 	self->intersection = i;
 	return self;
