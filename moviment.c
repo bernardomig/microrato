@@ -1,17 +1,5 @@
 #include "moviment.h"
 
-void moviment_align()
-{
-	if(sensors_get() & LEFT_TILTED) {
-		motors_rotateRight();
-		while(!(sensors_get() & ON_TRACK));
-	}
-	else if(sensors_get() & RIGHT_TILTED) {
-		motors_rotateLeft();
-		while(!(sensors_get() & ON_TRACK));
-	}
-}
-
 void moviment_rotate90Right()
 {
 	motors_rotateRight();
