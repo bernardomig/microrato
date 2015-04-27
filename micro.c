@@ -13,33 +13,36 @@ int main()
 		while(!stopButton()) {
 			p = s;
 			s = sensors_get();
-			
-			if(s == LEFT) {
-				while(sensors_get() == LEFT);
-				moviment_rotate90Left();
-				leds(0b100);
+			if((s & ON_TRACK) && ((p & (RIGHT|LEFT)) == (RIGHT|LEFT))) {
+				leds(0b111);
 			}
-			else if(s == RIGHT) {
-				while(sensors_get() == RIGHT);
+			else if((s & ON_TRACK) && (p & LEFT)) {
+				leds(0b110);
+			}
+			else if((s & ON_TRACK) && (p & RIGHT)) {
+				leds(0b011);
+			}
+			else if((s & (ON_TRACK|RIGHT_TILTED|LEFT_TILTED)) && (p & (ON_TRACK|RIGHT_TILTED|LEFT_TILTED))) {
+				moviment_forward();
+			}
+			else if((s == ALL_OFF) && (p & RIGHT)) {
 				moviment_rotate90Right();
 				leds(0b001);
 			}
-			else if(s == ALL_ON) {
-				while(sensors_get() == ALL_ON);
+			else if((s == ALL_OFF) && (p & LEFT)) {
 				moviment_rotate90Left();
-				leds(0b111);
+				leds(0b100);
 			}
-			else if(s == ALL_OFF && p == ON_TRACK) {
+			else if((s == ALL_OFF) && (p & (ON_TRACK|RIGHT_TILTED|LEFT_TILTED))) {
+				leds(0b000);
 				moviment_rotate180();
-				leds(0b101);
 			}
-			else if(s == ON_TRACK || s == LEFT_TILTED || s == RIGHT_TILTED) {
-				moviment_forward();
-				leds(0b010);
+			else if(!(s & ON_TRACK) && ((p & (RIGHT|LEFT)) == (RIGHT|LEFT))) {
+				moviment_rotate90Left();
+				leds(0b101);
 			}
 			else {
 				moviment_back();
-				leds(0b000);
 			}
 		}
 		moviment_stop();

@@ -5,16 +5,14 @@
 
 typedef enum
 {
-	ALL_OFF,
-	ALL_ON,
-	ON_TRACK,
-	RIGHT_TILTED,
-	LEFT_TILTED,
-	RIGHT,
-	LEFT
+	ALL_OFF       = 0b00000,
+	ALL_ON        = 0b11111,
+	ON_TRACK	  = 0b00100,
+	RIGHT_TILTED  = 0b00010,
+	LEFT_TILTED   = 0b01000,
+	RIGHT         = 0b00001,
+	LEFT          = 0b10000
 } sout;
-
-inline unsigned int sensors_getRAW();
 
 sout sensors_get();
 
