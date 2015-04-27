@@ -3,9 +3,9 @@
 
 #include "mr32.h"
 
-#define LINEAR_SPEED 100
-#define HALF_LINEAR_SPEED 100
-#define ROTATE_SPEED 100
+#define LINEAR_SPEED 80
+#define HALF_LINEAR_SPEED 80
+#define ROTATE_SPEED 70
 
 void motors_stop();
 

@@ -2,20 +2,18 @@
 
 void moviment_rotate90Right()
 {
+	motors_forwardRight();
+	while(sensors_get() & ON_TRACK);
 	motors_rotateRight();
-	if(sensors_get() & ON_TRACK) {
-		while(sensors_get() & ON_TRACK);
-	}
 	while(!(sensors_get() & ON_TRACK));
-	motors_stop();
 }
 
 void moviment_rotate90Left()
 {
-	motors_rotateLeft();
+	motors_forwardLeft();
 	while(sensors_get() & ON_TRACK);
+	motors_rotateLeft();
 	while(!(sensors_get() & ON_TRACK));
-	motors_stop();
 }
 
 void moviment_forward()
