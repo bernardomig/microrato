@@ -3,12 +3,12 @@
 
 typedef enum
 {
-	LEFT,
-	RIGHT,
-	FRONT,
-	BACK
+	LEFT_DIR,
+	RIGHT_DIR,
+	FRONT_DIR,
+	BACK_DIR
 } Directions;
 
-Direction Direction_changeRef(Direction, Direction);
+Directions Directions_changeRef(Directions, Directions);
 
 #endif

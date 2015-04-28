@@ -1,4 +1,4 @@
-SOURCES=micro.c mr32.c motors.c robot.c sensors.c moviment.c
+SOURCES=micro.c mr32.c motors.c robot.c sensors.c moviment.c directions.c intersections.c node.c path.c
 
 compile: micro.hex
 	

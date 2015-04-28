@@ -2,14 +2,55 @@
 #include "robot.h"
 #include "moviment.h"
 #include "sensors.h"
+#include "path.h"
+
+void printPath(Path* path)
+{
+	printf("%s\n", "======================");
+	int i;
+	for(i = 0; i <= path->current; ++i) {
+		if(path->nodes[i].intersection == CROSS) {
+			printf("%s\n", "CROSS");
+		}
+		else if(path->nodes[i].intersection == T_TURN) {
+			printf("%s\n", "T_TURN");
+		}
+		else if(path->nodes[i].intersection == FRONT_RIGHT) {
+			printf("%s\n", "FRONT_RIGHT");
+		}
+		else if(path->nodes[i].intersection == FRONT_LEFT) {
+			printf("%s\n", "FRONT_LEFT");
+		}
+	} 
+	if(path->back)
+	printf("%s\n", "GOING BACK");
+}
+
+void move(Directions d) {
+	if(d == RIGHT_DIR)
+	{
+		//printf("%s\n", "GOING Right");
+		moviment_rotate90Right();
+	}
+	else if(d == LEFT_DIR){
+		//printf("%s\n", "GOING LEFT");
+		moviment_rotate90Left();
+	}
+	else if(d == FRONT_DIR) {
+		//printf("%s\n", "GOING Front");
+		moviment_forward();
+	}
+}
 
 int main()
 {
 	sout s, p;
+	Path path = Path_new();
 	
 	robot_init();
 	while(1) {
 		while(!startButton());
+		moviment_forward();
 		while(!stopButton()) {
 			if(sensors_get() == s)
 				continue;
@@ -25,50 +66,53 @@ int main()
 				s &= CENTERED;
 			}
 
-			printf("Sensors: %u %u %u %u %u \n",
-				(s & 0b10000) && 1,
-				(s & 0b01000) && 1,
-				(s & 0b00100) && 1,
-				(s & 0b00010) && 1,
-				(s & 0b00001) && 1);
-
 			if((s & CENTERED) && (p & CENTERED)) {
 				// Continue the road
 				moviment_forward();
 			}
 			if((p & RIGHT) && (p & LEFT) && !(s & RIGHT) && !(s & LEFT) && !(s & CENTERED)) {
 				// T Shape
-				printf("T SHAPE\n");
+				Directions d = Path_intersection(&path, T_TURN);
+				move(d);
+				printPath(&path);
 				continue;
 			}
 			if((p & RIGHT) && (p & LEFT) && !(s & RIGHT) && !(s & LEFT) && (s & CENTERED)) {
 				// CROSS Shape
-				printf("CROSS\n");
+				Directions d = Path_intersection(&path, CROSS);
+				move(d);
+				printPath(&path);
 				continue;
 			}
 			if((p & RIGHT) && !(s & RIGHT) && !(p & LEFT) && !(s & LEFT) && (p & CENTERED) && !(s & CENTERED)) {
-				printf("%s\n", "RIGHT TURN");
+				// RIGHT TURN
 				moviment_rotate90Right();
 				continue;
 			}
 			if((p & LEFT) && !(s & LEFT) && !(p & RIGHT) && !(s & RIGHT) && (p & CENTERED) && !(s & CENTERED)) {
-				printf("%s\n", "LEFT TURN");
+				// LEFT TURN
 				moviment_rotate90Left();
 				continue;
 			}
 			if((p & RIGHT) && !(s & RIGHT) && !(p & LEFT) && !(s & LEFT) && (s & CENTERED)) {
-				printf("%s\n", "FRONT RIGHT");
-				moviment_rotate90Right();
+				// RIGHT_FRONT TURN
+				Directions d = Path_intersection(&path, FRONT_RIGHT);
+				printPath(&path);
+				move(d);
+				
 				continue;
 			}
 			if((p & LEFT) && !(s & LEFT) && !(p & RIGHT) && !(s & RIGHT) && (s & CENTERED)) {
-				printf("%s\n", "FRONT LEFT");
-				moviment_rotate90Left();
+				// LEFT_FRONT TURN
+				Directions d = Path_intersection(&path, FRONT_LEFT);
+				printPath(&path);
+				move(d);
 				continue;
 			}
 			if((s == ALL_OFF) && (p & CENTERED)) {
 				// End of the road
 				moviment_rotate180();
+				Path_back(&path);
 				continue;
 			}
 		}

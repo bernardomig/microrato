@@ -1,18 +1,11 @@
 #include "node.h"
 
-Node* Node_new(Node* p, Intersections i)
-{
-	Node* self = malloc(sizeof(Node));
-	self->current = 0;
-	p->child = self;
-	self->parent = p;
-	self->intersection = i;
-	return self;
-}
+#include "mr32.h"
 
-void Node_free(Node* self)
+void Node_new(Node* self, Intersections i)
 {
-	free(self);
+	self->intersection = i;
+	self->current = 0;
 }
 
 Directions Node_current(Node* self)
@@ -22,18 +15,13 @@ Directions Node_current(Node* self)
 
 Directions Node_next(Node* self)
 {
+	self->current += 1;
 	if(self->current < Intersections_getMax(self->intersection))
 	{
-		self->current += 1;
 		return Node_current(self);
 	}
 	else
 	{
-		return BACK;
+		return BACK_DIR;
 	}
-}
-
-Node* Node_parent(Node* self)
-{
-	return self->parent;
 }

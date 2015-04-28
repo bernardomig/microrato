@@ -11,10 +11,10 @@ int Intersections_getMax(Intersections i)
 	return 0;
 }
 
-const Directions __cross__directions[] = {LEFT, RIGHT, FRONT};
-const Directions __t_turn__directions[] = {LEFT, RIGHT};
-const Directions __front_left__directions[] = {LEFT, FRONT};
-const Directions __front_right__directions[] = {RIGHT, FRONT};
+const Directions __cross__directions[] = {LEFT_DIR, RIGHT_DIR, FRONT_DIR};
+const Directions __t_turn__directions[] = {LEFT_DIR, RIGHT_DIR};
+const Directions __front_left__directions[] = {LEFT_DIR, FRONT_DIR};
+const Directions __front_right__directions[] = {RIGHT_DIR, FRONT_DIR};
 
 
 Directions Intersections_get(Intersections i, int n)

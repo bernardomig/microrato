@@ -7,16 +7,12 @@
 #include "intersections.h"
 
 typedef struct Node {
-	struct Node* parent;
-	struct Node* child;
 	int current;
 	Intersections intersection;
 } Node;
 
-Node* Node_new(Node*, Intersections);
-void Node_free(Node*);
+void Node_new(Node*, Intersections);
 Directions Node_current(Node*);
 Directions Node_next(Node*);
-Node* Node_parent(Node*);
 
 #endif

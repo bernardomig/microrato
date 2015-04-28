@@ -9,7 +9,6 @@ typedef enum
 	T_TURN,
 	FRONT_LEFT,
 	FRONT_RIGHT,
-	STOP
 } Intersections;
 
 int Intersections_getMax(Intersections);
