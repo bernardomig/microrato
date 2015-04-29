@@ -58,6 +58,19 @@ int main()
 			p = s;
 			s = sensors_get();
 
+			if((s & LEFT) && (s & RIGHT)) {
+				delay(800);
+				sout t = sensors_get();
+				if((t & LEFT) && (t & RIGHT)) { 
+					moviment_stop();
+					path.current = 0;
+					path.is_complete = 1;
+					p = s = 0;
+					
+					break;
+				}
+			}
+
 			if((p & LEFT) && (p & RIGHT) && (s & (LEFT|RIGHT))) {
 				s |= (RIGHT|LEFT);
 			}
@@ -71,7 +84,7 @@ int main()
 				moviment_forward();
 			}
 			if((p & RIGHT) && (p & LEFT) && !(s & RIGHT) && !(s & LEFT) && !(s & CENTERED)) {
-				// T Shape
+				// T Shape	
 				Directions d = Path_intersection(&path, T_TURN);
 				move(d);
 				printPath(&path);

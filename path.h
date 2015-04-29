@@ -11,6 +11,7 @@ typedef struct
 	Node nodes[100];
 	int current;
 	BOOL back;
+	BOOL is_complete;
 } Path;
 
 Path Path_new();

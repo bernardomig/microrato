@@ -5,11 +5,18 @@ Path Path_new()
 	Path self;
 	self.current = 0;
 	self.back = FALSE;
+	self.is_complete = FALSE;
 	return self;
 }
 
 Directions Path_intersection(Path* self, Intersections i)
 {
+	if(self->is_complete)
+	{
+		self->current += 1;
+		Directions d = Node_current(self->nodes + self->current);
+		return d;
+	}
 	if(self->back) {
 		self->back = FALSE;
 		Directions c = Node_current(self->nodes + self->current);
