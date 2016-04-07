@@ -58,7 +58,7 @@ int main()
 			p = s;
 			s = sensors_get();
 
-			if((s & LEFT) && (s & RIGHT)) {
+			if((s & LEFT) && (s & RIGHT) && !path.is_complete) {
 				delay(800);
 				sout t = sensors_get();
 				if((t & LEFT) && (t & RIGHT)) { 
