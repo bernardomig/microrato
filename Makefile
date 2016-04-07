@@ -1,4 +1,4 @@
-SOURCES=micro.c mr32.c motors.c robot.c sensors.c moviment.c directions.c intersections.c node.c path.c
+SOURCES=$(wildcard *.c)
 
 compile: micro.hex
 	
@@ -10,4 +10,4 @@ upload: micro.hex
 	ldpic32 -w micro.hex
 
 clean:
-	rm *.o *.hex *.elf *.map
+	@- rm *.o *.hex *.elf *.map
